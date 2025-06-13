@@ -5,7 +5,6 @@ const index = (req, res) => {
 
   connection.query(sql, (err, results) => {
     if (err) {
-      console.error("Database query failed:", err);
       res
         .status(500)
         .json({ status: 500, success: "error", message: "Database error" });
