@@ -16,16 +16,24 @@ const index = (req, res) => {
 };
 
 const show = (req, res) => {
-  // const id = parseInt(req.params.id);
-  // console.log("richiesta per il post: " + id);
-  // const originalPost = posts.find((post) => post.id === id);
-  // res.header({ "Access-Control-Allow-Origin": "*" });
-  // if (!originalPost) {
-  //   const error = new Error("Item not found");
-  //   error.statusCode = 404;
-  //   throw error;
-  // }
-  // res.status(200).json({ status: 200, success: "ok", data: originalPost });
+  const sql = "SELECT * FROM posts WHERE id = ?";
+
+  const id = parseInt(req.params.id);
+  connection.query(sql, [id], (err, results) => {
+    if (err) {
+      res
+        .status(500)
+        .json({ status: 500, success: "error", message: "Database error" });
+      return;
+    }
+    if (results.length === 0) {
+      res
+        .status(404)
+        .json({ status: 404, success: "ok", message: "Item not found" });
+      return;
+    }
+    res.status(200).json({ status: 200, success: "ok", data: results[0] });
+  });
 };
 
 const store = (req, res) => {

@@ -7,3 +7,7 @@
  Richiesta GET sull'url /post alle 15:02:56
  Richiesta GET sull'url /posts alle 15:03:05
  Richiesta GET sull'url /posts alle 15:04:27
+ Richiesta GET sull'url /posts/1 alle 15:07:03
+ Richiesta GET sull'url /posts/156 alle 15:07:07
+ Richiesta GET sull'url /posts/156 alle 15:08:24
+ Richiesta GET sull'url /posts/5 alle 15:08:37
