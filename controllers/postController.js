@@ -16,10 +16,10 @@ const index = (req, res) => {
 };
 
 const show = (req, res) => {
-  const sql = "SELECT * FROM posts WHERE id = ?";
-
+  const sqlPost = "SELECT * FROM posts WHERE id = ?";
   const id = parseInt(req.params.id);
-  connection.query(sql, [id], (err, results) => {
+
+  connection.query(sqlPost, [id], (err, results) => {
     if (err) {
       res
         .status(500)
@@ -32,7 +32,29 @@ const show = (req, res) => {
         .json({ status: 404, success: "ok", message: "Item not found" });
       return;
     }
-    res.status(200).json({ status: 200, success: "ok", data: results[0] });
+    return (post = results[0]);
+  });
+
+  const sqlTags = `SELECT tags.* 
+FROM tags
+INNER JOIN post_tag ON tags.id = post_tag.tag_id
+WHERE post_tag.post_id = 3`;
+
+  connection.query(sqlTags, [id], (err, results) => {
+    if (err) {
+      res
+        .status(500)
+        .json({ status: 500, success: "error", message: "Database error" });
+      return;
+    }
+    if (results.length === 0) {
+      res
+        .status(404)
+        .json({ status: 404, success: "ok", message: "Item not found" });
+      return;
+    }
+    post.tags = results;
+    res.status(200).json({ status: 200, success: "ok", data: post });
   });
 };
 
@@ -128,8 +150,6 @@ const destroy = (req, res) => {
   const sql = "DELETE FROM posts WHERE id = ?";
   const id = parseInt(req.params.id);
   connection.query(sql, [id], (err, results) => {
-    console.log(results);
-
     if (err) {
       res
         .status(500)
