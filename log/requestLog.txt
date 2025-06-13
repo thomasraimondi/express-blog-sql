@@ -11,3 +11,10 @@
  Richiesta GET sull'url /posts/156 alle 15:07:07
  Richiesta GET sull'url /posts/156 alle 15:08:24
  Richiesta GET sull'url /posts/5 alle 15:08:37
+ Richiesta GET sull'url /posts/3 alle 15:11:30
+ Richiesta GET sull'url /posts alle 15:11:36
+ Richiesta GET sull'url /posts/5 alle 15:11:50
+ Richiesta GET sull'url /posts alle 15:12:40
+ Richiesta GET sull'url /posts/5 alle 15:12:50
+ Richiesta DELETE sull'url /posts/5 alle 15:13:00
+ Richiesta DELETE sull'url /posts/552 alle 15:14:02

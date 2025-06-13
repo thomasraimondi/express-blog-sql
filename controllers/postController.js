@@ -125,17 +125,25 @@ const modify = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  // const id = parseInt(req.params.id);
-  // console.log("richiesta l'eliminazione del post: " + id);
-  // const post = posts.find((post) => post.id === id);
-  // if (!originalPost) {
-  //   const error = new Error("Item not found");
-  //   error.statusCode = 404;
-  //   throw error;
-  // }
-  // //   posts = posts.filter((post) => post.id !== id);
-  // posts.splice(posts.indexOf(post), 1);
-  // res.status(204);
+  const sql = "DELETE FROM posts WHERE id = ?";
+  const id = parseInt(req.params.id);
+  connection.query(sql, [id], (err, results) => {
+    console.log(results);
+
+    if (err) {
+      res
+        .status(500)
+        .json({ status: 500, success: "error", message: "Database error" });
+      return;
+    }
+    if (results.affectedRows === 0) {
+      res
+        .status(404)
+        .json({ status: 404, success: "ok", message: "Item not found" });
+      return;
+    }
+    res.status(204).send();
+  });
 };
 
 module.exports = { index, show, store, update, modify, destroy };
